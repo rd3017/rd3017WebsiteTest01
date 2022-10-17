@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v1
       with:
-        registry: https://github.com/rd3017/rd3017websitetest01/
-        username: ${{ secrets.AzureAppService_ContainerUsername_808436be319c404794f58d5c8624f17e }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_c3c5711458a041dcb1f2d4c2e0a33cf4 }}
+        registry: https://mcr.microsoft.com/
+        username: ${{ secrets.AzureAppService_ContainerUsername_3fc74aa177c44d8faef0521f6b29805d }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_61ad8c8c55be4059aa65fecb894d799d }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: github.com/rd3017/rd3017websitetest01/${{ secrets.AzureAppService_ContainerUsername_808436be319c404794f58d5c8624f17e }}/rd3017/rd3017websitetest01/appsvc/staticsite:${{ github.sha }}
+        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_3fc74aa177c44d8faef0521f6b29805d }}/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'myGSWebsite01'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_eedfe900361b42a48c490554815739f2 }}
-        images: 'github.com/rd3017/rd3017websitetest01/${{ secrets.AzureAppService_ContainerUsername_808436be319c404794f58d5c8624f17e }}/rd3017/rd3017websitetest01/appsvc/staticsite:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c97bf6f5fac84cea839fca714cb3f8ea }}
+        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_3fc74aa177c44d8faef0521f6b29805d }}/appsvc/staticsite:${{ github.sha }}'
